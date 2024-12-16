@@ -14,9 +14,10 @@ public class EmployeeService {
 
     //persist an employee
     public Employee createEmployee(Employee employee){
-        if(employee.getUsername().length() > 0)
-            if(employee.getPassword().length() > 0)
-                return this.employeeRepository.save(employee);
+        if(employeeRepository.findEmployeeByUsername(employee.getUsername()) == null) //checking if username is NOT registered, i.e. null
+            if(employee.getUsername().length() > 0)
+                if(employee.getPassword().length() > 0)
+                    return this.employeeRepository.save(employee);
         
         return null;
     }
@@ -29,5 +30,5 @@ public class EmployeeService {
         return null;
     }
 
-    
+
 }

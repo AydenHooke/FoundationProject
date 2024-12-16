@@ -40,6 +40,12 @@ public class Ticket {
     /*
      * The status of the ticket
      */
+
+    public void setTicketStatus(status pendingStatusOnly){
+        if(this.ticketStatus == status.PENDING) //this ensures that tickets cannot be modified after processing
+            this.ticketStatus = pendingStatusOnly;
+    }
+
     public Ticket(){
 
     }
