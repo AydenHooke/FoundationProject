@@ -1,6 +1,5 @@
 package com.foundation.project.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,7 +18,6 @@ public class ProjectController {
     EmployeeService employeeService;
     TicketService ticketService;
 
-    @Autowired
     public ProjectController(EmployeeService employeeService, TicketService ticketService){
         this.employeeService = employeeService;
         this.ticketService = ticketService;
