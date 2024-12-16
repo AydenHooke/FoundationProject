@@ -1,23 +1,23 @@
 package com.foundation.project.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-enum authorityLevel{
-    DEFAULT,
-    FINANCEMANAGER
-}
+
 
 @Entity
 @Table(name="employee")
+@Data
 public class Employee {
+
+    public enum authorityLevel{
+        DEFAULT,
+        FINANCEMANAGER
+    }
 
     @Column(name="employeeId")
     @Id
     @GeneratedValue
-    @Getter
-    @Setter
 
     private Integer employeeId;
     /*

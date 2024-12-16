@@ -1,25 +1,23 @@
 package com.foundation.project.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-enum status{
-    PENDING,
-    APPROVED,
-    DENIED
-}
 
 @Entity
 @Table(name="ticket")
-
+@Data
 public class Ticket {
     
+    public enum status{
+        PENDING,
+        APPROVED,
+        DENIED
+    }
+
     @Column(name="ticketId")
     @Id
     @GeneratedValue
-    @Getter
-    @Setter
 
     private Integer ticketId;
     /*
@@ -29,6 +27,15 @@ public class Ticket {
     /*
      * This is the ID of the employee that requested the refund
      */
+    private Integer reimbursementAmount;
+    /*
+     * This is the amount of the reimbursement
+     */
+    private String reimbursementDescription;
+    /*
+     * This a description of the reimbursement
+     */
+    @Enumerated(EnumType.STRING)
     private status ticketStatus;
     /*
      * The status of the ticket
@@ -37,14 +44,19 @@ public class Ticket {
 
     }
 
-    public Ticket(Integer requestedId){
+    public Ticket(Integer requestedId, Integer reimbursementAmount, String reimbursementDescription){
         this.requestedId = requestedId;
+        this.reimbursementAmount = reimbursementAmount;
+        this.reimbursementDescription = reimbursementDescription;
         this.ticketStatus = status.PENDING;
     }
 
-    public Ticket(Integer requestedId, status ticketStatus){
+    public Ticket(Integer ticketId, Integer requestedId, Integer reimbursementAmount, String reimbursementDescription){
+        this.ticketId = ticketId;
         this.requestedId = requestedId;
-        this.ticketStatus = ticketStatus;
+        this.reimbursementAmount = reimbursementAmount;
+        this.reimbursementDescription = reimbursementDescription;
+        this.ticketStatus = status.PENDING;
     }
 
 }
