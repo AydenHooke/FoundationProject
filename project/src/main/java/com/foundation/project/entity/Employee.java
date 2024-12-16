@@ -10,11 +10,6 @@ import lombok.Data;
 @Data
 public class Employee {
 
-    public enum authorityLevel{
-        DEFAULT,
-        FINANCEMANAGER
-    }
-
     @Column(name="employeeId")
     @Id
     @GeneratedValue
@@ -31,7 +26,7 @@ public class Employee {
     /*
      * This must not be blank, no other parameters set
      */
-    private authorityLevel authority;
+    private Integer accessLevel;
     /*
      * This is a measure of an account's authority
      * 0 = default employee (new-hire)
@@ -40,24 +35,23 @@ public class Employee {
     public Employee(){
 
     }
-
+    
     public Employee(String username, String password){
         this.username = username;
         this.password = password;
-        this.authority = authorityLevel.DEFAULT;
     }
 
-    public Employee(String username, String password, Integer authority){
+    public Employee(String username, String password, Integer accessLevel){
         this.username = username;
         this.password = password;
-        this.authority = authorityLevel.DEFAULT;
+        this.accessLevel = accessLevel;
     }
 
-    public Employee(Integer employeeId, String username, String password, Integer authority){
+    public Employee(Integer employeeId, String username, String password, Integer accessLevel){
         this.employeeId = employeeId;
         this.username = username;
         this.password = password;
-        this.authority = authorityLevel.DEFAULT;
+        this.accessLevel = accessLevel;
     }
 
 }

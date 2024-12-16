@@ -4,6 +4,9 @@ import com.foundation.project.entity.Employee;
 import com.foundation.project.entity.Ticket.*;
 import com.foundation.project.entity.Ticket;
 import com.foundation.project.repository.TicketRepository;
+
+import jakarta.transaction.Transactional;
+
 import com.foundation.project.repository.EmployeeRepository;
 import java.util.List;
 
@@ -19,6 +22,7 @@ public class TicketService {
     }
 
     //persist a ticket
+    @Transactional
     public Ticket createTicket(Ticket ticket){
         if(ticket.getReimbursementAmount() > 0)
             if(ticket.getReimbursementDescription().length() > 0)
@@ -27,6 +31,7 @@ public class TicketService {
         return null;
     }
 
+    @Transactional
     public Ticket approveTicket(Ticket ticket){
         if(ticket.getTicketId() == ticketRepository.findTicketByTicketId(ticket.getTicketId()).getTicketId())
             if(ticket.getTicketStatus() == status.PENDING){
@@ -37,6 +42,7 @@ public class TicketService {
         return null;
     }
 
+    @Transactional
     public Ticket denyTicket(Ticket ticket){
         if(ticket.getTicketId() == ticketRepository.findTicketByTicketId(ticket.getTicketId()).getTicketId())
             if(ticket.getTicketStatus() == status.PENDING){
