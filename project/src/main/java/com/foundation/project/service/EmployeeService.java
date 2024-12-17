@@ -29,7 +29,7 @@ public class EmployeeService {
 
     //process a login
     public Employee processLogin(Employee employee){
-        if(employee.getPassword() == employeeRepository.findEmployeeByUsernameAndPassword(employee.getUsername(), employee.getPassword()).getPassword())
+        if(employee.getPassword().equals(employeeRepository.findEmployeeByUsernameAndPassword(employee.getUsername(), employee.getPassword()).getPassword()))
             return this.employeeRepository.findEmployeeByUsernameAndPassword(employee.getUsername(), employee.getPassword());
         
         return null;
@@ -45,4 +45,12 @@ public class EmployeeService {
 
         return null;
     }
+
+    public Employee findEmployeeById(int id){
+        if(employeeRepository.findEmployeeByEmployeeId(id).getEmployeeId() == id)
+            return employeeRepository.findEmployeeByEmployeeId(id);
+        
+        return null;
+    }
+
 }
