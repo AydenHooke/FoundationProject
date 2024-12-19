@@ -1,24 +1,30 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import React, { createContext, useContext, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { userContext } from '../../App';
 
 function Login() {
-  const [state, setState] = useState({
-    username: "",
-    password: ""
-  });
+
+  const id = useContext(userContext);
 
   const navigateMe = useNavigate();
 
   async function logMeIn() {
-      const userInfo = await fetch("http://localhost:8080/")
+      const userInfo = await fetch("http://localhost:8080/accountService", {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({username: id.username, password: id.password})
+      }
+
+      
+
+      )
       if(userInfo.status == 201)
         window.alert("Your account as been successfully created!")
       else if (userInfo.status == 200)
-        navigateMe('/', {state})
+        navigateMe(`/EmployeeWelcome`, {});
       else
         window.alert("This username already exists - try a new one!")
 
-        
     
   }
 
@@ -30,20 +36,25 @@ function Login() {
     let checkPassword = data.get("password");
     let checkRePassword = data.get("rePassword");
     if(checkPassword == checkRePassword){
-      setState({
-        username: checkUsername as string,
-        password: checkPassword as string
-      })
-    }else
+        id.username = checkUsername as string;
+        id.password = checkPassword as string;
+        logMeIn();
+    }else{
         window.alert("Your passwords do not match!");
-
+        return;
+      }
     
-
 
   }
 
   return (
     <>
+<ul className="nav nav-pills">
+  <li className="nav-item">
+    <Link className="nav-link active" aria-current="page" to="/">Login</Link>
+  </li>
+</ul>
+
       <h2 style = {{color: "blue"}}>LOGIN PAGE</h2><br></br>
         <form onSubmit={checkLogin}>
           <label>Username</label><br></br>

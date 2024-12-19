@@ -29,10 +29,10 @@ public class EmployeeService {
 
     //process a login
     public Employee processLogin(Employee employee){
-        if(employee.getPassword().equals(employeeRepository.findEmployeeByUsernameAndPassword(employee.getUsername(), employee.getPassword()).getPassword()))
-            return this.employeeRepository.findEmployeeByUsernameAndPassword(employee.getUsername(), employee.getPassword());
-        
-        return null;
+            if(this.employeeRepository.findEmployeeByUsernameAndPassword(employee.getUsername(), employee.getPassword())!=null)
+                return this.employeeRepository.findEmployeeByUsernameAndPassword(employee.getUsername(), employee.getPassword());
+            
+            return null;
     }
 
     @Transactional

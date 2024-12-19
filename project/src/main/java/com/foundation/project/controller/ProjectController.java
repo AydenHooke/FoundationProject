@@ -28,13 +28,24 @@ public class ProjectController {
         this.ticketService = ticketService;
     }
 
-    @PostMapping("/register")
+    @PostMapping("/accountService")
     public ResponseEntity<?> registrationHandler(@RequestBody Employee newEmployee){
-        Employee testEmployee = employeeService.createEmployee(newEmployee);
-        if(testEmployee != null)
+        Employee testEmployee = employeeService.processLogin(newEmployee);
+        if(testEmployee != null){
+            System.out.println("User: " + testEmployee.getEmployeeId() + " has logged in"); // checking to login
             return ResponseEntity.status(HttpStatus.OK)
+                .build(); 
+            }
+
+        testEmployee = employeeService.createEmployee(newEmployee);
+
+        if(testEmployee != null){                              // creating account if valid
+            System.out.println("User: " + testEmployee.getEmployeeId() + " has been created");
+            return ResponseEntity.status(HttpStatus.CREATED)
                 .body(testEmployee);
-        return ResponseEntity.status(HttpStatus.CONFLICT)
+        }
+                
+        return ResponseEntity.status(HttpStatus.CONFLICT)     // if error or not valid
                 .build();
     }
 
