@@ -5,19 +5,19 @@ function NavBar() {
   return (
     <ul className="nav nav-pills">
   <li className="nav-item">
-    <Link className="nav-link active" aria-current="page" to="/login">Get Authenticated!</Link>
+    <Link className="nav-link active" aria-current="page" to="/login">Login</Link>
   </li>
   <li className="nav-item">
-    <Link className="nav-link" to="/events">View Pending Requests</Link>
+    <Link className="nav-link" to="/submitTicket">Submit A Ticket</Link>
   </li>
   <li className="nav-item">
-    <Link className="nav-link" to="/something-else">Submit A Request</Link>
+    <Link className="nav-link" to="/viewMyTickets">View My Tickets</Link>
   </li>
   <li className="nav-item">
-  <Link className="nav-link" to="/promoteMe">Get Promoted!</Link>
+  <Link className="nav-link" to="/processTickets">Process Tickets</Link>
   </li>
   <li className="nav-item">
-  <Link className="nav-link" to="/hooks">Hooks</Link>
+  <Link className="nav-link" to="/promoteEmployee">Promote An Employee</Link>
   </li>
 </ul>
   );

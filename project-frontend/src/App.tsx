@@ -1,27 +1,26 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import FirstComponent from './Components/FirstComponent/FirstComponent';
-import EventsDemo from './Components/Events/EventsDemo';
-import ListDemo from './Components/ListDemo/ListDemo';
-import ParentComponent from './Components/PropsDemo/ParentComponent/ParentComponent';
 import { Route, Routes } from 'react-router-dom';
 import NavBar from './Components/NavBar/NavBar';
-import HooksDemo from './Components/Hooks/HooksDemo';
-import UserManagement from './Components/FormInput/SmartComponent/UserManagement';
+import Login from './Components/AllVisitors/Login';
+import SubmitTicket from './Components/Employee/SubmitTicket';
+import ViewMyTickets from './Components/Employee/ViewMyTickets';
+import ProcessTickets from './Components/Manager/ProcessTickets';
+import PromoteEmployee from './Components/Manager/PromoteEmployee';
+
 
 function App() {
   return (
     <div className="App">
-      {/* <FirstComponent/>
-      <EventsDemo/>
-      <ListDemo/>
-      <ParentComponent/> */}
       <NavBar/>
       <Routes>
-        <Route path="/events" element={<EventsDemo/>}></Route>
-        <Route path="/hooks" element={<HooksDemo/>}></Route>
-        <Route path="/login" element={<UserManagement/>}></Route>
+        <Route path="/" element={<Login/>}></Route>
+            <Route path="/submitTicket/:employeeId" element={<SubmitTicket/>}></Route>
+            <Route path="/viewMyTickets/:employeeId" element={<ViewMyTickets/>}></Route>
+            
+            <Route path="/processTickets/:employeeId" element={<ProcessTickets/>}></Route>
+            <Route path="/promoteEmployee/:employeeId" element={<PromoteEmployee/>}></Route>
       </Routes>
     </div>
   );
