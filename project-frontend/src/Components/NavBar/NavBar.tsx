@@ -5,7 +5,7 @@ function NavBar() {
   return (
     <ul className="nav nav-pills">
   <li className="nav-item">
-    <Link className="nav-link active" aria-current="page" to="/login">Login</Link>
+    <Link className="nav-link active" aria-current="page" to="/">Login</Link>
   </li>
   <li className="nav-item">
     <Link className="nav-link" to="/submitTicket">Submit A Ticket</Link>
