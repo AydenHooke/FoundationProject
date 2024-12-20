@@ -44,7 +44,6 @@ function ViewMyTickets() {
 <>
     <table style = {{width: "100%", textAlign: "center"}}>
       <thead>
-        <th style = {{color: "#00A36C", borderBottom: "1px solid #ddd"}}>Employee #</th>
         <th style = {{color: "#00A36C", borderBottom: "1px solid #ddd"}}>Ticket #</th>
         <th style = {{color: "#00A36C", borderBottom: "1px solid #ddd"}}>Amount</th>
         <th style = {{color: "#00A36C", borderBottom: "1px solid #ddd"}}>Description</th>
@@ -53,7 +52,6 @@ function ViewMyTickets() {
       <tbody>
         {viewedTickets.map( ticket => (
           <tr key = {ticket.ticketId}>
-            <td style = {{borderBottom: "1px solid #ddd"}}>{ticket.requestedId}</td>
             <td style = {{borderBottom: "1px solid #ddd"}}>{ticket.ticketId}</td>
             <td style = {{borderBottom: "1px solid #ddd"}}>${ticket.reimbursementAmount}</td>
             <td style = {{borderBottom: "1px solid #ddd"}}>{ticket.reimbursementDescription}</td>
