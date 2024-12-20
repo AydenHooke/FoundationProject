@@ -1,36 +1,59 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useContext, useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { userContext } from '../../App';
 
 function SubmitTicket() {
-    const { employeeId } = useParams();
+    const currentEmployee = useContext(userContext)
+        const navigateMe = useNavigate();
     
+        useEffect(()=>
+            {
+                if(currentEmployee.powerLevel < 0)
+                    navigateMe('/', {})
+          })
+  
+    const checkTicketInfo = (event : any) => {
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      let checkAmount = data.get("amount");
+      let checkDescription = data.get("description");
+
+      async function submitATicket() {
+        const userTicket = await fetch(`http://localhost:8080/ticketCreation?employeeId=${currentEmployee.employeeId}`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({reimbursementAmount: checkAmount, reimbursementDescription: checkDescription})
+        })
+
+        if(userTicket.status == 201)
+          window.alert("Your request has been successfully submitted!");
+        else
+          window.alert("There was an error submitting your request");
+      }
+      
+
+    submitATicket();
+    }
 
   return (
     <>
-      <h2 style = {{color: "blue"}}>LOGIN PAGE</h2><br></br>
-        <form>
-          <label>Username</label><br></br>
-          <input type="text" id="username" name="username" required/><br></br>
+    <h1></h1>
+      <h1 style = {{color: "yellow"}}>SUBMIT A TICKET</h1><br></br>
+        <form onSubmit={checkTicketInfo}>
+          <label>How much do you need to be reimbursed?</label><br></br>
+          <input type="text" id="amount" name="amount" required/><br></br>
 
           <h1></h1> {/* This is just a space --> */}
 
-          <label>Password</label><br></br>
-          <input type="password" id="password" name="password" required/><br></br>
+          <label>Please elaborate on your reimbursement:</label><br></br>
+          <input type="text" id="description" name="description" required/><br></br>
 
           <h1></h1> {/* This is just a space --> */}
 
-          <label>Re-type Password</label><br></br>
-          <input type="password" id="rePassword" name="rePassword" required/><br></br>
-
-          <h1></h1> {/* This is just a space --> */}
           
-          <input type="submit" value="Login"/>
+          <br></br><br></br>
 
-          <h1></h1> {/* This is just a space --> */}
-          
-          <br></br><br></br><br></br>
-
-          <input type="submit" value="Create Account"/>
+          <input type="submit" value="Apply for Reimbursement"/>
         </form> 
       <div></div> 
     </>

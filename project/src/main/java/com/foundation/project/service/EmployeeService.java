@@ -17,7 +17,7 @@ public class EmployeeService {
     //persist an employee
     @Transactional
     public Employee createEmployee(Employee employee){
-        if(employeeRepository.findEmployeeByUsername(employee.getUsername()) == null) //checking if username is NOT registered, i.e. null
+        if(this.employeeRepository.findEmployeeByUsername(employee.getUsername()) == null) //checking if username is NOT registered, i.e. null
             if(employee.getUsername().length() > 0)
                 if(employee.getPassword().length() > 0){
                     employee.setAccessLevel(0);
@@ -37,8 +37,8 @@ public class EmployeeService {
 
     @Transactional
     public Employee promoteMe(Employee employee, int promotionCode){
-        if(employee.getUsername().equals(employeeRepository.findEmployeeByUsername(employee.getUsername()).getUsername()) && promotionCode == 6969){
-            employee = employeeRepository.findEmployeeByUsername(employee.getUsername());
+        if(employee.getUsername().equals(this.employeeRepository.findEmployeeByUsername(employee.getUsername()).getUsername()) && promotionCode == 6969){
+            employee = this.employeeRepository.findEmployeeByUsername(employee.getUsername());
             employee.setAccessLevel(employee.getAccessLevel()+1);
             return this.employeeRepository.save(employee);
         }
@@ -47,8 +47,8 @@ public class EmployeeService {
     }
 
     public Employee findEmployeeById(int id){
-        if(employeeRepository.findEmployeeByEmployeeId(id).getEmployeeId() == id)
-            return employeeRepository.findEmployeeByEmployeeId(id);
+        if(this.employeeRepository.findEmployeeByEmployeeId(id) != null)
+            return this.employeeRepository.findEmployeeByEmployeeId(id);
         
         return null;
     }

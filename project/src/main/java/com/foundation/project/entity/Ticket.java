@@ -50,6 +50,13 @@ public class Ticket {
 
     }
 
+    public Ticket(Integer reimbursementAmount, String reimbursementDescription){
+        this.requestedId = -1;
+        this.reimbursementAmount = reimbursementAmount;
+        this.reimbursementDescription = reimbursementDescription;
+        this.ticketStatus = status.PENDING;
+    }
+
     public Ticket(Integer requestedId, Integer reimbursementAmount, String reimbursementDescription){
         this.requestedId = requestedId;
         this.reimbursementAmount = reimbursementAmount;

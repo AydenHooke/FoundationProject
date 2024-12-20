@@ -8,28 +8,36 @@ import SubmitTicket from './Components/Employee/SubmitTicket';
 import ViewMyTickets from './Components/Employee/ViewMyTickets';
 import ProcessTickets from './Components/Manager/ProcessTickets';
 import PromoteEmployee from './Components/Manager/PromoteEmployee';
+import EmployeeWelcome from './Components/Employee/EmployeeWelcome';
+import ManagerWelcome from './Components/Manager/ManagerWelcome';
+import ViewAllTickets from './Components/Manager/ViewAllTickets';
 
 
-const id = {
+const currentEmployee = {
   username: "",
   password: "",
-  employeeId: -1
+  employeeId: -1,
+  powerLevel: -1
 }
 
-export const userContext = createContext(id);
+export const userContext = createContext(currentEmployee);
 
 function App() {
   return (
     <div className="App">
       {/* <NavBar/> */}
-      <userContext.Provider value={id}>
+      <userContext.Provider value={currentEmployee}>
         <Routes>
-          <Route path="/" element={<Login/>}></Route>
-              <Route path="/submitTicket/:employeeId" element={<SubmitTicket/>}></Route>
-              <Route path="/viewMyTickets/:employeeId" element={<ViewMyTickets/>}></Route>
-              
-              <Route path="/processTickets/:employeeId" element={<ProcessTickets/>}></Route>
-              <Route path="/promoteEmployee/:employeeId" element={<PromoteEmployee/>}></Route>
+          <Route path="*" element={<Login/>}/>
+          <Route path="home/*" element={<EmployeeWelcome/>}>
+            <Route path="submitTicket" element={<SubmitTicket/>}/>
+            <Route path="viewMyTickets" element={<ViewMyTickets/>}/>
+          </Route>
+          <Route path="lounge/*" element={<ManagerWelcome/>}>
+            <Route path="processTickets" element={<ProcessTickets/>}/>
+            <Route path="viewAllTickets" element={<ViewAllTickets/>}/>
+            <Route path="promoteEmployee" element={<PromoteEmployee/>}/>
+          </Route>
         </Routes>
       </userContext.Provider>
     </div>

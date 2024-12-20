@@ -23,17 +23,19 @@ public class TicketService {
 
     //persist a ticket
     @Transactional
-    public Ticket createTicket(Ticket ticket){
+    public Ticket createTicket(Ticket ticket, int requestedId){
         if(ticket.getReimbursementAmount() > 0)
-            if(ticket.getReimbursementDescription().length() > 0)
+            if(ticket.getReimbursementDescription().length() > 0){
+                ticket.setRequestedId(requestedId);
                 return this.ticketRepository.save(ticket);
-        
+            }
+                
         return null;
     }
 
     @Transactional
     public Ticket approveTicket(Ticket ticket){
-        if(ticket.getTicketId() == ticketRepository.findTicketByTicketId(ticket.getTicketId()).getTicketId())
+        if(this.ticketRepository.findTicketByTicketId(ticket.getTicketId()) != null)
             if(ticket.getTicketStatus() == status.PENDING){
                 ticket.setTicketStatus(status.APPROVED);
                 return this.ticketRepository.save(ticket);
@@ -44,7 +46,7 @@ public class TicketService {
 
     @Transactional
     public Ticket denyTicket(Ticket ticket){
-        if(ticket.getTicketId() == ticketRepository.findTicketByTicketId(ticket.getTicketId()).getTicketId())
+        if(this.ticketRepository.findTicketByTicketId(ticket.getTicketId()) != null)
             if(ticket.getTicketStatus() == status.PENDING){
                 ticket.setTicketStatus(status.DENIED);
                 return this.ticketRepository.save(ticket);
@@ -53,9 +55,23 @@ public class TicketService {
         return null;
     }
 
+    public Ticket findMyTicket(int ticketId){
+        if(this.ticketRepository.findTicketByTicketId(ticketId) != null)
+            return this.ticketRepository.findTicketByTicketId(ticketId);
+        
+        return null;
+    }
+
     public List<Ticket> showMyTickets(Employee employee){
-        if(employee.getEmployeeId() == employeeRepository.findEmployeeByEmployeeId(employee.getEmployeeId()).getEmployeeId())
+        if(this.employeeRepository.findEmployeeByEmployeeId(employee.getEmployeeId()) != null)
             return this.ticketRepository.findTicketsByRequestedId(employee.getEmployeeId());
+        
+        return null;
+    }
+
+    public List<Ticket> showAllTickets(Employee employee){
+        if(employeeRepository.findEmployeeByEmployeeId(employee.getEmployeeId()) != null)
+            return this.ticketRepository.findTicketsByTicketIdNotNull();
         
         return null;
     }
