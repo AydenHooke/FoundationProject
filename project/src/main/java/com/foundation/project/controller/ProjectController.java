@@ -44,7 +44,7 @@ public class ProjectController {
         if(testEmployee != null){                              // creating account if valid
             System.out.println("Employee #" + testEmployee.getEmployeeId() + " has been created");
             return ResponseEntity.status(HttpStatus.CREATED)
-                .body(testEmployee);
+                .build();
         }
 
         System.out.println("An error has occurred while servicing an account");
@@ -58,10 +58,10 @@ public class ProjectController {
         if(promotedEmployee != null){
             System.out.println("Employee #" + promotedEmployee.getEmployeeId() + " has been promoted to level " + promotedEmployee.getAccessLevel() + " access");
             return ResponseEntity.status(HttpStatus.OK)
-                .body(promotedEmployee);
+                .build();
         }///needs approval for promoting employees
 
-        System.out.println("An error has occurred while promoting an employee");
+        System.out.println("An error has occurred while promoting an Employee");
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .build();
     }
@@ -74,9 +74,9 @@ public class ProjectController {
             createdTicket = ticketService.createTicket(ticket, employeeId);
 
         if(createdTicket != null && authorizationCheck != null){
-            System.out.println("A ticket has been created by employee #" + authorizationCheck.getEmployeeId());
+            System.out.println("Ticket #" + createdTicket.getTicketId() + " has been created by Employee #" + authorizationCheck.getEmployeeId());
             return ResponseEntity.status(HttpStatus.CREATED)
-                .body(createdTicket);
+                .build();
         }
 
         System.out.println("An error has occurred while creating a ticket"); 
@@ -90,14 +90,15 @@ public class ProjectController {
         if(testEmployee !=null){
             if(testEmployee.getAccessLevel() > 0){
                 List<Ticket> allTickets = ticketService.showAllTickets(testEmployee);
-                System.out.println("Employee #" + employeeId + "has retrieved all tickets");
+                System.out.println("Employee #" + employeeId + " has retrieved all tickets");
                 return ResponseEntity.status(HttpStatus.OK)
                     .body(allTickets);
             }
 
             if(testEmployee.getAccessLevel() == 0){
                 List<Ticket> employeeTickets = ticketService.showMyTickets(testEmployee);
-                System.out.println("Employee #" + employeeId + "viewed their tickets");
+                System.out.println(employeeTickets);
+                System.out.println("Employee #" + employeeId + " viewed their tickets");
                 return ResponseEntity.status(HttpStatus.OK)
                     .body(employeeTickets);
             }
@@ -114,7 +115,7 @@ public class ProjectController {
         if(testEmployee !=null && approvedTicket != null){
             if(testEmployee.getAccessLevel() > 0)
                 ticketService.approveTicket(approvedTicket);
-                System.out.println("Employee #" + employeeId + "has approved ticket #" + ticketId);
+                System.out.println("Employee #" + employeeId + " has approved ticket #" + ticketId);
                 return ResponseEntity.status(HttpStatus.OK)
                     .build();
             }
@@ -131,7 +132,7 @@ public class ProjectController {
         if(testEmployee !=null && deniedTicket != null){
             if(testEmployee.getAccessLevel() > 0)
                 ticketService.denyTicket(deniedTicket);
-                System.out.println("Employee #" + employeeId + "has denied ticket #" + ticketId);
+                System.out.println("Employee #" + employeeId + " has denied ticket #" + ticketId);
                 return ResponseEntity.status(HttpStatus.OK)
                     .build();
             }

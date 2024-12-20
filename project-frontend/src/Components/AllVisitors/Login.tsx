@@ -10,42 +10,13 @@ function Login() {
   useEffect(()=>
     {
       currentEmployee.username = "";
-      currentEmployee.password = "";
       currentEmployee.employeeId = -1; // removes values on logout i.e. first page reload
       currentEmployee.powerLevel = -1;
   }, [])
 
   const navigateMe = useNavigate();
 
-  async function logMeIn() {
-      const userInfo = await fetch("http://localhost:8080/accountService", {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({username: currentEmployee.username, password: currentEmployee.password})
-      })
-     
-      try{
-        let loggedUser = await userInfo.json();
-        currentEmployee.powerLevel = loggedUser.accessLevel;
-        currentEmployee.employeeId = loggedUser.employeeId;
-      }catch(e){
-        window.alert("Someone with that username already exists - try another");
-      }
-      
-
-      if(userInfo.status == 201){
-        (document.getElementById('form') as HTMLFormElement).reset();
-        window.alert("Your account as been successfully created!")
-      }
-      else if (userInfo.status == 200 && currentEmployee.powerLevel == 0)
-        navigateMe(`/home`, {});
-      else if (userInfo.status == 200 && currentEmployee.powerLevel > 0)
-        navigateMe(`/lounge`, {});
-      else if (userInfo.status != 409)
-        window.alert("There was an error with your request - please try again later");
-
-    
-  }
+  
 
   const checkLogin = (event : any) => {
     event.preventDefault()
@@ -54,16 +25,43 @@ function Login() {
     let checkUsername = data.get("username");
     let checkPassword = data.get("password");
     let checkRePassword = data.get("rePassword");
-    if(checkPassword == checkRePassword){
+
+    if(checkPassword == checkRePassword)
       currentEmployee.username = checkUsername as string;
-      currentEmployee.password = checkPassword as string;
-      logMeIn();
-    }else{
+    else{
       window.alert("Your passwords do not match!");
       return;
     }
-    
 
+      async function logMeIn() {
+        const userInfo = await fetch("http://localhost:8080/accountService", {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({username: currentEmployee.username, password: checkPassword as string})
+        })   
+
+        try{
+          let loggedUser = await userInfo.json();
+          currentEmployee.powerLevel = loggedUser.accessLevel;
+          currentEmployee.employeeId = loggedUser.employeeId;
+        }catch(e){}
+
+        if(userInfo.status == 201){
+          (document.getElementById('form') as HTMLFormElement).reset();
+          window.alert("Your account has been successfully created!")
+        }
+        else if (userInfo.status == 200 && currentEmployee.powerLevel == 0)
+          navigateMe(`/home`, {});
+        else if (userInfo.status == 200 && currentEmployee.powerLevel > 0)
+          navigateMe(`/lounge`, {});
+        else if (userInfo.status != 409)
+          window.alert("Someone with this username already exists");
+        else
+          window.alert("A problem has occured - try again later")
+      }
+    
+    
+    logMeIn();
   }
 
   return (
@@ -77,7 +75,7 @@ function Login() {
       <h2 style = {{color: "blue"}}>LOGIN PAGE</h2><br></br>
         <form onSubmit={checkLogin} id = "form">
           <label>Username</label><br></br>
-          <input type="text" id="username" name="username" required/><br></br>
+          <input id="username" name="username" required/><br></br>
 
           <h1></h1> {/* This is just a space --> */}
 

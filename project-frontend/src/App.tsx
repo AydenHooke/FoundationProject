@@ -15,7 +15,6 @@ import ViewAllTickets from './Components/Manager/ViewAllTickets';
 
 const currentEmployee = {
   username: "",
-  password: "",
   employeeId: -1,
   powerLevel: -1
 }

@@ -27,6 +27,7 @@ public class TicketService {
         if(ticket.getReimbursementAmount() > 0)
             if(ticket.getReimbursementDescription().length() > 0){
                 ticket.setRequestedId(requestedId);
+                ticket.setTicketStatus("PENDING");
                 return this.ticketRepository.save(ticket);
             }
                 
@@ -36,8 +37,8 @@ public class TicketService {
     @Transactional
     public Ticket approveTicket(Ticket ticket){
         if(this.ticketRepository.findTicketByTicketId(ticket.getTicketId()) != null)
-            if(ticket.getTicketStatus() == status.PENDING){
-                ticket.setTicketStatus(status.APPROVED);
+            if(ticket.getTicketStatus().equals("PENDING")){
+                ticket.setTicketStatus("APPROVED");
                 return this.ticketRepository.save(ticket);
             }
         // returns null upon ticket being NOT pending - not an exception
@@ -47,8 +48,8 @@ public class TicketService {
     @Transactional
     public Ticket denyTicket(Ticket ticket){
         if(this.ticketRepository.findTicketByTicketId(ticket.getTicketId()) != null)
-            if(ticket.getTicketStatus() == status.PENDING){
-                ticket.setTicketStatus(status.DENIED);
+            if(ticket.getTicketStatus().equals("PENDING")){
+                ticket.setTicketStatus("DENIED");
                 return this.ticketRepository.save(ticket);
             }
         // returns null upon ticket being NOT pending - not an exception

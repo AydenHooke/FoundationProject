@@ -10,7 +10,7 @@ function ProcessTickets() {
         {
             if(currentEmployee.powerLevel < 0)
                 navigateMe('/', {})
-      })
+      }, [])
   return (
     <div>Pfgsdfgsdfgsdfg</div>
   )

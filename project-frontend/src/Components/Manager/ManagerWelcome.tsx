@@ -10,7 +10,7 @@ function ManagerWelcome() {
       {
           if(currentEmployee.powerLevel < 0)
               navigateMe('/', {})
-    })
+    }, [])
   return (
     <>
 <ul className="nav nav-pills">

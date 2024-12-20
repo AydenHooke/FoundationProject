@@ -10,7 +10,7 @@ function ViewAllTickets() {
             {
                 if(currentEmployee.powerLevel < 0)
                     navigateMe('/', {})
-          })
+          }, [])
           
   return (
     <div>ViewAllTickets</div>

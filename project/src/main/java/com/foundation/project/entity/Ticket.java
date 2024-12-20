@@ -8,12 +8,6 @@ import lombok.Data;
 @Table(name="ticket")
 @Data
 public class Ticket {
-    
-    public enum status{
-        PENDING,
-        APPROVED,
-        DENIED
-    }
 
     @Column(name="ticketId")
     @Id
@@ -35,15 +29,18 @@ public class Ticket {
     /*
      * This a description of the reimbursement
      */
-    @Enumerated(EnumType.STRING)
-    private status ticketStatus;
+    
+    private String ticketStatus;
     /*
      * The status of the ticket
      */
 
-    public void setTicketStatus(status pendingStatusOnly){
-        if(this.ticketStatus == status.PENDING) //this ensures that tickets cannot be modified after processing
+    public void setTicketStatus(String pendingStatusOnly){
+        if(this.ticketStatus == null)
+            this.ticketStatus = "PENDING";
+        if(this.ticketStatus.equals("PENDING"))     //this ensures that tickets cannot be modified after processing
             this.ticketStatus = pendingStatusOnly;
+         
     }
 
     public Ticket(){
@@ -51,17 +48,14 @@ public class Ticket {
     }
 
     public Ticket(Integer reimbursementAmount, String reimbursementDescription){
-        this.requestedId = -1;
         this.reimbursementAmount = reimbursementAmount;
         this.reimbursementDescription = reimbursementDescription;
-        this.ticketStatus = status.PENDING;
     }
 
     public Ticket(Integer requestedId, Integer reimbursementAmount, String reimbursementDescription){
         this.requestedId = requestedId;
         this.reimbursementAmount = reimbursementAmount;
         this.reimbursementDescription = reimbursementDescription;
-        this.ticketStatus = status.PENDING;
     }
 
     public Ticket(Integer ticketId, Integer requestedId, Integer reimbursementAmount, String reimbursementDescription){
@@ -69,7 +63,5 @@ public class Ticket {
         this.requestedId = requestedId;
         this.reimbursementAmount = reimbursementAmount;
         this.reimbursementDescription = reimbursementDescription;
-        this.ticketStatus = status.PENDING;
     }
-
 }
