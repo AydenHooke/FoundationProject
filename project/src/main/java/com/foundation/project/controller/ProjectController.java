@@ -50,6 +50,8 @@ public class ProjectController {
         System.out.println("An error has occurred while servicing an account");
         return ResponseEntity.status(HttpStatus.CONFLICT)     // if error or not valid
                 .build();
+
+        
     }
 
     @PostMapping("/promote")

@@ -43,13 +43,16 @@ function SubmitTicket() {
       <h1 style = {{color: "yellow"}}>SUBMIT A TICKET</h1><br></br>
         <form onSubmit={checkTicketInfo} id = "form">
           <label>How much do you need to be reimbursed?</label><br></br>
-          <input type="text" id="amount" name="amount" required/><br></br>
+          <h1></h1>
+          <div style = {{width:"27px", display:'inline-block', verticalAlign:'baseline'}}>$</div>
+          <input type="text" id="amount" name="amount" required style = {{marginRight:'27px'}}/><br></br>
 
           <h1></h1>{/* This is just a space --> */}
           <br></br>
           <h1></h1>{/* This is just a space --> */}
 
           <label>Please elaborate on your reimbursement:</label><br></br>
+          <h1></h1>
           <textarea id="description" name="description" style = {{width: "314px", height: "159px",}} required/><br></br>
 
           <h1></h1> {/* This is just a space --> */}

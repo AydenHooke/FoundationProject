@@ -54,10 +54,10 @@ function Login() {
           navigateMe(`/home`, {});
         else if (userInfo.status == 200 && currentEmployee.powerLevel > 0)
           navigateMe(`/lounge`, {});
-        else if (userInfo.status != 409)
+        else if (userInfo.status == 409)
           window.alert("Someone with this username already exists");
         else
-          window.alert("A problem has occured - try again later")
+          window.alert("A problem has occured - try again later");
       }
     
     

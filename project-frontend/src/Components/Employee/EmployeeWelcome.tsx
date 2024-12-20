@@ -30,8 +30,9 @@ function EmployeeWelcome({}) {
 
 <br></br>
 
-    <h1 style = {{color: "#FC6C85"}}>{"Welcome " + currentEmployee.username + "!"}</h1>
+    <h1 style = {{color: "#A30036"}}>{"Welcome " + currentEmployee.username + "!"}</h1>
 
+    <br></br>
     <Outlet/>
 
 

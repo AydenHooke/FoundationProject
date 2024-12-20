@@ -19,8 +19,8 @@ function ProcessTickets() {
         {
             if(currentEmployee.powerLevel < 0)
                 navigateMe('/', {})
-  
-            getTickets();
+            else
+              getTickets();
       }, [])
   
 
@@ -68,25 +68,25 @@ function ProcessTickets() {
 
     return (
   <>
-      <table>
+      <table style = {{width: "100%"}}>
         <thead>
-          <th>Requested ID</th>
-          <th>Ticket ID</th>
-          <th>Amount</th>
-          <th>Description</th>
-          <th>Status</th>
-          <th>Approval</th>
+          <th style = {{color: "#00A36C", borderBottom: "1px solid #ddd"}}>Employee #</th>
+          <th style = {{color: "#00A36C", borderBottom: "1px solid #ddd"}}>Ticket #</th>
+          <th style = {{color: "#00A36C", borderBottom: "1px solid #ddd"}}>Amount</th>
+          <th style = {{color: "#00A36C", borderBottom: "1px solid #ddd"}}>Description</th>
+          <th style = {{color: "#00A36C", borderBottom: "1px solid #ddd"}}>Status</th>
+          <th style = {{color: "#00A36C", borderBottom: "0px solid #ddd"}}>Approval</th>
         </thead>
         <tbody>
           {viewedTickets.map(ticket => (
             <tr key = {ticket.ticketId}>
-              <td>{ticket.requestedId}</td>
-              <td>{ticket.ticketId}</td>
-              <td>${ticket.reimbursementAmount}</td>
-              <td>{ticket.reimbursementDescription}</td>
-              <td>{ticket.ticketStatus}</td>
-              <button onClick = {(e) => approveTicket(ticket)} style = {{color : "green"}} value="Submit"></button>
-              <button onClick = {(e) => denyTicket(ticket)} style = {{color : "red"}} value="Submit"></button>
+              <td style = {{borderBottom: "1px solid #ddd"}}>{ticket.requestedId}</td>
+              <td style = {{borderBottom: "1px solid #ddd"}}>{ticket.ticketId}</td>
+              <td style = {{borderBottom: "1px solid #ddd"}}>${ticket.reimbursementAmount}</td>
+              <td style = {{borderBottom: "1px solid #ddd"}}>{ticket.reimbursementDescription}</td>
+              <td style = {{borderBottom: "1px solid #ddd"}}>{ticket.ticketStatus}</td>
+              <button onClick = {(e) => approveTicket(ticket)} style = {{backgroundColor : "#00FF00", borderBottom: "1px solid #ddd", width:"33px", height:"11px", margin: "3px"}} value="Submit"></button>
+              <button onClick = {(e) => denyTicket(ticket)} style = {{backgroundColor : "#FF0000", borderBottom: "1px solid #ddd", width:"33px", height:"11px", margin: "3px"}} value="Submit"></button>
             </tr>
           ))}
           
