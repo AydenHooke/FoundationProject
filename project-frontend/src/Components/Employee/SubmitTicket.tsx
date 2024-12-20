@@ -25,8 +25,10 @@ function SubmitTicket() {
           body: JSON.stringify({reimbursementAmount: checkAmount, reimbursementDescription: checkDescription})
         })
 
-        if(userTicket.status == 201)
+        if(userTicket.status == 201){
+          (document.getElementById('form') as HTMLFormElement).reset();
           window.alert("Your request has been successfully submitted!");
+        }
         else
           window.alert("There was an error submitting your request");
       }
@@ -39,7 +41,7 @@ function SubmitTicket() {
     <>
     <h1></h1>
       <h1 style = {{color: "yellow"}}>SUBMIT A TICKET</h1><br></br>
-        <form onSubmit={checkTicketInfo}>
+        <form onSubmit={checkTicketInfo} id = "form">
           <label>How much do you need to be reimbursed?</label><br></br>
           <input type="text" id="amount" name="amount" required/><br></br>
 
