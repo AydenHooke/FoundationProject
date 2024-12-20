@@ -1,7 +1,6 @@
 package com.foundation.project.service;
 
 import com.foundation.project.entity.Employee;
-import com.foundation.project.entity.Ticket.*;
 import com.foundation.project.entity.Ticket;
 import com.foundation.project.repository.TicketRepository;
 
@@ -73,6 +72,13 @@ public class TicketService {
     public List<Ticket> showAllTickets(Employee employee){
         if(employeeRepository.findEmployeeByEmployeeId(employee.getEmployeeId()) != null)
             return this.ticketRepository.findTicketsByTicketIdNotNull();
+        
+        return null;
+    }
+
+    public List<Ticket> findAllPendingTickets(Employee employee, String status){
+        if(employeeRepository.findEmployeeByEmployeeId(employee.getEmployeeId()) != null)
+            return this.ticketRepository.findTicketsByTicketStatus(status);
         
         return null;
     }

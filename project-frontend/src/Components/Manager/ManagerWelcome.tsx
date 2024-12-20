@@ -23,9 +23,9 @@ function ManagerWelcome() {
   <li className="nav-item">
     <Link className="nav-link" to="/lounge/viewAllTickets">View All Tickets</Link>
   </li>
-  <li className="nav-item">
+  {/* <li className="nav-item">
     <Link className="nav-link" to="/lounge/promoteEmployee">Promote Employee</Link>
-  </li>
+  </li> */}
 </ul>
 
 <br></br>
